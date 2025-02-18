@@ -1,6 +1,7 @@
 import { Schema, model, type Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
+
 import bookSchema from './Book.js';
 import type { BookDocument } from './Book.js';
 
@@ -34,13 +35,13 @@ const userSchema = new Schema<UserDocument>(
 
     savedBooks: [bookSchema],
   },
+ 
   {
     toJSON: {
       virtuals: true,
     },
   }
 );
-
 
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
@@ -54,6 +55,7 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
+
 
 userSchema.virtual('bookCount').get(function () {
   return this.savedBooks.length;
