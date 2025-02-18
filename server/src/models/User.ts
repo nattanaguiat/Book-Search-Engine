@@ -37,9 +37,7 @@ const userSchema = new Schema<UserDocument>(
   },
   // set this to use virtual below
   {
-    toJSON: {
-      virtuals: true,
-    },
+    toJSON: { getters: true },
   }
 );
 
