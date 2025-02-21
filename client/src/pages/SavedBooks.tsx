@@ -8,31 +8,31 @@ import type { User } from '../models/User';
 import { useQuery, useMutation } from '@apollo/client';
 
 const SavedBooks = () => {
-  // fetch the user's data from the server
+  
   const { loading, data } = useQuery(GET_ME);
   const userData: User = data?.me || { savedBooks: [] };
 
-  // remove a book using apollo client
+  
   const [removeBook] = useMutation(REMOVE_BOOK, {
-    // refetch user's data to force rerender
+    
     refetchQueries: [GET_ME, 'me'],
   });
 
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
+
   const handleDeleteBook = async (bookId: string) => {
     if(!Auth.loggedIn()) return false;
 
     try {
       await removeBook({ variables: { bookId } });
 
-      // upon success, remove book's id from localStorage
+ 
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
   };
 
-  // if data isn't here yet, say so
+  
   if (loading) {
     return <h2>LOADING...</h2>;
   }
