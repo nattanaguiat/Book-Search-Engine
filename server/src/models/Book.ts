@@ -9,6 +9,7 @@ export interface BookDocument extends Document {
   link: string;
 }
 
+
 const bookSchema = new Schema<BookDocument>({
   authors: [
     {
@@ -18,6 +19,7 @@ const bookSchema = new Schema<BookDocument>({
   description: {
     type: String,
   },
+  
   bookId: {
     type: String,
     required: true,
