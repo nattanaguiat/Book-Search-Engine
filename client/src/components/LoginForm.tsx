@@ -32,7 +32,7 @@ const LoginForm = ({}: { handleModalClose: () => void }) => {
 
     try {
       // use the loginUser mutation to log in the user
-      const {data} = await loginUser({variables: { ...userFormData }});
+      const { data } = await loginUser({variables: { ...userFormData }});
       // use the token from the response to log the user in
       Auth.login(data.login.token);
     } catch (err) {
